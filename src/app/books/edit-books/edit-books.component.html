@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div class="row">
+        <div style="height: 92vh;width:fit-content;" class="col-lg-2 bg-dark d-flex flex-column p-3">
+         <a style="text-decoration: none;color: white;" class="mb-3 fw-bolder" routerLink="/">Home</a>
+         <a style="text-decoration: none;color: white;" class="mb-3 fw-bolder" routerLink="/books">Books</a>
+         <a style="text-decoration: none;color: white;" class="mb-3 fw-bolder" routerLink="/members">Members</a>
+
+
+        </div>
+        <div class="col-lg-10">
+            <h1>Edit Book </h1>
+            <form #addBooksForm="ngForm" class="border mt-5 p-3 rounded">
+                <div class="form-floating mb-3">
+
+                    <input #id="ngModel" name="id" [(ngModel)] ="book.id" type="text" class="form-control" 
+                    id="floatingInputId" placeholder="ID" pattern="[a-zA-Z0-9]*" required readonly>
+                    <label for="floatingInputId">ID</label>
+
+                </div>
+                <div *ngIf="id.invalid && id.touched" class="mb-3 text-danger fw-bolder">*Invalid book Id</div>
+
+
+                <div class="form-floating mb-3">
+                    <input #title="ngModel" name="title" [(ngModel)] ="book.title" type="text" class="form-control" 
+                    id="floatingInputTitle" placeholder="Title" pattern="[a-zA-Z ]*" required>
+                    <label for="floatingInputTitle">Title</label>
+                </div>
+                <div *ngIf="title.invalid && title.touched" class="mb-3 text-danger fw-bolder">*Invalid book title</div>
+
+
+                <div class="form-floating mb-3">
+
+                    <input #author="ngModel" name="author" [(ngModel)] ="book.author" type="text" class="form-control" 
+                    id="floatingInputAuthor" placeholder="Author" pattern="[a-zA-Z ]*" required >
+                    <label for="floatingInputAuthor">Author Name</label>
+
+                </div>
+                <div *ngIf="author.invalid && author.touched" class="mb-3 text-danger fw-bolder">*Invalid author name</div>
+
+
+
+
+                <div class="form-floating mb-3">
+                    <input #genre="ngModel" name="genre" [(ngModel)] ="book.genre" type="text" class="form-control" 
+                    id="floatingInputGenre" placeholder="Genre" pattern="[a-zA-Z ]*" required >
+                    <label for="floatingInputGenre">Genre</label>
+                </div>
+                <div *ngIf="genre.invalid && genre.touched" class="mb-3 text-danger fw-bolder">*Invalid genre</div>
+
+
+                <div class="form-floating mb-3">
+                    <select #status="ngModel" name="status" [(ngModel)] ="book.status" class="form-control" 
+                    id="floatingInputStatus" placeholder="Status" required>
+                        <option value="" hidden disabled selected></option>
+                        <option value="1">Available</option>
+                        <option value="0">Not Available</option>
+                    </select>
+                    <label for="floatingInputStatus">Status</label>
+                </div>
+                <div *ngIf="status.invalid && status.touched" class="mb-3 text-danger fw-bolder">*Invalid book status</div>
+
+                     
+                <div class="d-flex ">
+                    <button (click)="updateBook()"  [disabled]="addBooksForm.invalid" class="btn btn-success">Update</button>
+                    <button (click)="cancel(book.id)" class="btn btn-primary ms-5">Cancel</button>
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>

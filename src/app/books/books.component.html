@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <div style="height: 92vh;width:fit-content;" class="col-lg-2 bg-dark d-flex flex-column p-3">
+         <a style="text-decoration: none;color: white;" class="mb-3 fw-bolder" routerLink="/">Home</a>
+         <a style="text-decoration: none;color: white;" class="mb-3 fw-bolder" routerLink="/books">Books</a>
+         <a style="text-decoration: none;color: white;" class="mb-3 fw-bolder" routerLink="/members">Members</a>
+
+
+        </div>
+        <div class="col-lg-10">
+           <div class="d-flex justify-content-between mt-5"> 
+            <h1 class="fw-bolder">All Books List</h1>
+            <button routerLink="/add" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i>Add</button>
+        </div>
+        <div class="mt-5 d-flex ">
+            <div  class="d-flex align-items-center">
+               <span class="fw-bolder"> Search </span>
+             <input [(ngModel)]="searchKey" style="width: 500px;" type="text" class="form-control ms-3" placeholder="Search for Books">
+            </div>
+
+
+        </div>
+        <div class="mt-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Genre</th>
+                        <th>Status</th>
+                        <th>...</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of allBooks | search : searchKey | paginate: { itemsPerPage: 4, currentPage: p } ">
+                        <td>{{book.id}}</td>
+                        <td>{{book.title}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.genre}}</td>
+                        <td ><span [ngClass]="book.status=='1'?'btn btn-success':'btn btn-secondary'">{{book.status=="1"?"Available":"Not Available"}}</span></td>
+                        <td>
+                            <button routerLink="/books/{{book.id}}/edit" class="btn text-primary"><i class="fa-solid fa-edit"></i></button>
+                            <button (click)="deleteBook(book.id)" class="btn text-danger"><i class="fa-solid fa-trash"></i></button>
+
+                        </td>
+                    </tr>
+                    <tr *ngIf="(allBooks | search : searchKey).length==0">
+                        <p class="fw-bolder text-danger ">Not found!!!</p>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mt-2 text-center">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+</div>
